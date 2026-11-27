@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Assignments | Assignment Tracker</title>
+    <!-- Bootstrap 5.3.9 via jsDelivr. Source: https://getbootstrap.com/docs/5.3/getting-started/introduction/ -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+  </head>
+  <body>
+  <%- include('partials/header') %>
+
+<main class="container my-5 p-4 p-md-5 bg-light rounded-3 border">
+  <h1>Assignments</h1>
+  <a href="/assignments/new" class="btn btn-primary mb-3">Add Assignment</a>
+  <% if (assignments.length === 0) { %>
+  <p>No assignments have been added yet.</p>
+<% } else { %>
+  <ul class="list-group">
+    <% for (const assignment of assignments) { %>
+      <li class="list-group-item">
+        <strong><%= assignment.title %></strong>
+        <div>Course: <%= assignment.course %></div>
+        <div>Due: <%= assignment.dueDate ? assignment.dueDate.toISOString().slice(0, 10) : '—' %></div>
+        <div>Status: <%= assignment.status %></div>
+        <a href="/assignments/<%= assignment._id %>/edit"
+   class="btn btn-outline-primary btn-sm mt-2">Edit</a>
+   <a href="/assignments/<%= assignment._id %>/delete"
+   class="btn btn-outline-danger btn-sm mt-2">Delete</a>
+      </li>
+    <% } %>
+  </ul>
+<% } %>
+</main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>
